@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-4.1.xsd">
+ 
+	<!-- 启用spring注解 -->
+	<context:annotation-config></context:annotation-config>
+	<context:component-scan base-package="com.mfc"></context:component-scan>
+	
+	<!-- 一、配置数据源 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName">
+		   <value>com.mysql.jdbc.Driver</value>
+		</property>
+		<property name="url" value="jdbc:mysql://192.168.60.113:3306/date"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="123456"></property>
+	</bean>
+	
+	<!--二、 配置本地会话工厂 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!--注入数据源  -->
+		<property name="dataSource" ref="dataSource"></property>
+		<!-- 配置mybatis自身属性 -->
+		<property name="typeAliasesPackage" value="com.date.mapper"></property>
+		<property name="mapperLocations" value="classpath:com/date/mapper/*.xml"></property>
+ <!-- 		<property name="configLocation" value="classpath:conf.xml"></property> -->
+	</bean>
+	
+	<!--三、配置sqlsession模板  -->
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory"></constructor-arg>
+	</bean>
+	
+	<!-- 使用aop配置事务 -->
+	<bean id="dataSourceTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<tx:advice id="txAdvice" transaction-manager="dataSourceTransactionManager">
+		<tx:attributes>
+			<tx:method name="query*" propagation="SUPPORTS" read-only="false" isolation="DEFAULT"/>
+			<tx:method name="select*" propagation="SUPPORTS" read-only="true" isolation="DEFAULT"/>
+	   		<tx:method name="get*" propagation="SUPPORTS" read-only="true" isolation="DEFAULT"/>
+	     	<tx:method name="find*" propagation="SUPPORTS" read-only="true" isolation="DEFAULT"/>
+	   		<tx:method name="*"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	<aop:config>
+	   <aop:pointcut expression="execution(* com.sc.service..*.*(..))" id="service"/>
+	   <aop:advisor advice-ref="txAdvice" pointcut-ref="service"/>
+	</aop:config>
+</beans>
