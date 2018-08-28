@@ -36,9 +36,8 @@ public class IndexController {
 	public String insertUser(HttpServletRequest request, HttpServletResponse response) {
 		String userStr = request.getParameter("user");
 		User u = new Gson().fromJson(userStr, User.class);
-		int i = userService.insert(u);
-		return new Gson().toJson(i);
-		//return "ok";
+		int id = userService.insertUser(u);
+		return new Gson().toJson(id);
 	}
 	
 	@RequestMapping(value = "/getUser",produces = {"application/json;charset=UTF-8"})

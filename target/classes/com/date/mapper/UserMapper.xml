@@ -11,7 +11,100 @@
         <result column="AGE" property="age" jdbcType="INTEGER" />  
     </resultMap>  
     <!-- 查询单条记录 -->  
-    <select id="selectUserById" parameterType="String" resultMap="BaseResultMap">  
+    <select id="selectUserById" parameterType="String" resultType="com.date.model.User">  
         SELECT * FROM user WHERE id = #{id}
-    </select>  
+    </select>
+    
+    <insert id="insertUser" parameterType="com.date.model.User" keyProperty="id" useGeneratedKeys="true">
+     	insert into user(
+     		Id,
+   			OPENID,
+   			NICKNAME,
+   			SEX,
+   			BIRTH,
+   			CITY,
+   			EDUCTATION,
+   			INCOME,
+   			ISMARRY,
+   			HASCHILD,
+   			WANTCHILD,
+   			WORK,
+   			CAR,
+   			HOUSE,
+   			WEIGHT,
+   			BODYSIZE,
+   			SMOKE,
+   			DRINK,
+   			CONSTELLATION,
+   			ETHNIC,
+   			MARRYTIME,
+   			SHOWINFO,
+   			HEIGHT,
+   			TEXT,
+   			ISADMIN
+   		) values (
+   			UUID(),
+	     	#{openid},
+	     	#{nickname},
+	     	#{sex},
+	     	#{birth},
+	     	#{city},
+	     	#{education},
+	     	#{income},
+	     	#{ismarry},
+	     	#{haschild},
+	     	#{wantchild},
+	     	#{work},
+	     	#{car},
+	     	#{house},
+	     	#{weight},
+	     	#{bodysize},
+	     	#{smoke},
+	     	#{drink},
+	     	#{constellation},
+	     	#{ethnic},
+	     	#{marrytime},
+	     	#{showinfo},
+	     	#{height},
+	     	#{text},
+	     	#{isadmin}
+	     )
+    </insert>
+    
+    <update id="updateUser" parameterType="com.date.model.User">
+    	update user set
+    		openid = #{openid},
+    		nickname = #{nickname},
+			sex = #{sex},
+			birth = #{birth},
+			city = #{{city},
+			education = #{education},
+			income = #{income},
+			ismarry = #{ismarry},
+			haschild = #{haschild},
+			wantchild = #{wantchild},
+			work = #{work},
+			car = #{car},
+			house = #{house},
+			weight = #{weight},
+			bodysize = #{bodysize},
+			smoke = #{smoke},
+			drink = #{drink},
+			constellation = #{constellation},
+			ethnic = #{ethnic},
+			marrytime = #{marrytime},
+			showinfo = #{showinfo},
+			height = #{height},
+			text = #{text}
+    		where id = #{id}
+	</update>
+	
+    <delete id="deleteUser" parameterType="String">
+    	delete from user where id = #{id}
+    </delete>
+    
+    <select id="queryUserList" parameterType="com.date.model.User" resultType="com.date.model.user">
+    	<if test="">
+    	</if>
+    </select>
 </mapper> 

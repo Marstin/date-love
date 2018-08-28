@@ -15,14 +15,12 @@ public class UserService implements UserServiceImpl{
 	@Autowired
 	private UserDao userDao;
 	
-	public int insert(User u) {
+	public int insertUser(User u) {
 		// TODO Auto-generated method stub
-		System.out.println(u.toString());
-		return 0;
+		return userDao.insertUser(u);
 	}
 	
 	public User getUser(String id) {
 		return userDao.selectUserById(id);
 	}
-	
 }
