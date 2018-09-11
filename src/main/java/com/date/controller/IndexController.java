@@ -1,5 +1,8 @@
 package com.date.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -31,19 +34,43 @@ public class IndexController {
 		return "123";
 	}
 	
-	@RequestMapping("/insertUser")
+	@RequestMapping(value = "/insertUser",produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
 	public String insertUser(HttpServletRequest request, HttpServletResponse response) {
 		String userStr = request.getParameter("user");
 		User u = new Gson().fromJson(userStr, User.class);
 		int id = userService.insertUser(u);
-		return new Gson().toJson(id);
+		return new Gson().toJson(true);
 	}
 	
 	@RequestMapping(value = "/getUser",produces = {"application/json;charset=UTF-8"})
 	@ResponseBody
-	public String getUser() {
-		User u = userService.getUser("0");
+	public String getUser(HttpServletRequest request, HttpServletResponse response) {
+		String userId = request.getParameter("openid");
+		User u = userService.getUser(userId);
 		return new Gson().toJson(u);
 	}
+	
+	@RequestMapping(value = "/updateUser",produces = {"application/json;charset=UTF-8"})
+	@ResponseBody
+	public String updateUser(HttpServletRequest request, HttpServletResponse response) {
+		String userStr = request.getParameter("user");
+		User u = new Gson().fromJson(userStr, User.class);
+		userService.updateUser(u);
+		return new Gson().toJson(true);
+	}
+	
+	@RequestMapping(value = "/queryUser",produces = {"application/json;charset=UTF-8"})
+	@ResponseBody
+	public String queryUser(HttpServletRequest request, HttpServletResponse response) {
+		String userStr = request.getParameter("user");
+		User u = new Gson().fromJson(userStr, User.class);
+		int pageNo = Integer.parseInt(request.getParameter("pageNo"));
+		int pageSize = Integer.parseInt(request.getParameter("pageSize"));
+		u.setLimitMin((pageNo - 1) * pageSize);
+		u.setPageSize(pageSize);
+		List<User> lstUser = userService.queryUser(u);
+		return new Gson().toJson(lstUser);
+	}
+	
 }

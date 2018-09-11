@@ -1,5 +1,7 @@
 package com.date.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,5 +24,13 @@ public class UserService implements UserServiceImpl{
 	
 	public User getUser(String id) {
 		return userDao.selectUserById(id);
+	}
+	
+	public int updateUser(User u) {
+		return userDao.updateUser(u);
+	}
+	
+	public List<User> queryUser(User u){
+		return userDao.queryUser(u);
 	}
 }

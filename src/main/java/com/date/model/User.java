@@ -3,11 +3,6 @@ package com.date.model;
 public class User {
 	
 	/**
-	 * 主键
-	 */
-	private String id;
-	
-	/**
 	 * 微信openId
 	 */
 	private String openid;
@@ -59,12 +54,34 @@ public class User {
 	
 	private String text;
 	
-	public String getId() {
-		return id;
+	private String isadmin;
+	
+	private int limitMin;
+	
+	private int pageSize;
+	
+	public int getLimitMin() {
+		return limitMin;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setLimitMin(int limitMin) {
+		this.limitMin = limitMin;
+	}
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	public String getIsadmin() {
+		return isadmin;
+	}
+
+	public void setIsadmin(String isadmin) {
+		this.isadmin = isadmin;
 	}
 
 	public String getOpenid() {
@@ -250,6 +267,5 @@ public class User {
 	public void setText(String text) {
 		this.text = text;
 	}
-
 	
 }

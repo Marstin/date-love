@@ -45,5 +45,17 @@
         <servlet-name>default</servlet-name>  
         <url-pattern>*.js</url-pattern>  
     </servlet-mapping> 
-
+	
+	<filter>
+    <filter-name>characterEncodingFilter</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <init-param><!-- 针对request -->
+        <param-name>encoding</param-name>
+        <param-value>UTF-8</param-value>
+    </init-param>
+    <init-param><!-- 针对response --> 
+        <param-name>forceEncoding</param-name>
+        <param-value>true</param-value>
+    </init-param>
+</filter>
 </web-app>

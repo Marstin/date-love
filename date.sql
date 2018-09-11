@@ -47,7 +47,6 @@ CREATE TABLE `action_image` (
 DROP TABLE IF EXISTS `user`;
 
 CREATE TABLE `user` (
-  `id` varchar(32) NOT NULL COMMENT '主键',
   `openid` varchar(200) NOT NULL COMMENT '微信OPENID',
   `nickname` varchar(200) DEFAULT NULL COMMENT '名字',
   `sex` varchar(3) DEFAULT NULL COMMENT '性别',
@@ -71,24 +70,22 @@ CREATE TABLE `user` (
   `showinfo` tinyint(1) DEFAULT NULL COMMENT '是否公开',
   `height` int(4) DEFAULT NULL COMMENT '身高',
   `text` text COMMENT '爱情宣言',
-  `isadmin` tinyint(1) DEFAULT '0' COMMENT '管理员标识',
-  PRIMARY KEY (`id`)
+  `isadmin` tinyint(1) DEFAULT '0' COMMENT '管理员标识'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `user` */
 
-insert  into `user`(`id`,`openid`,`nickname`,`sex`,`birth`,`city`,`education`,`income`,`ismarry`,`haschild`,`wantchild`,`work`,`car`,`house`,`weight`,`bodysize`,`smoke`,`drink`,`constellation`,`ethnic`,`marrytime`,`showinfo`,`height`,`text`,`isadmin`) values 
-('0','张三','name','12','男',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
-('1','sadasd','1','0',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
-('2','sadasd','2','0',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
-('3','sadasd','3','0',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+insert  into `user`(`openid`,`nickname`,`sex`,`birth`,`city`,`education`,`income`,`ismarry`,`haschild`,`wantchild`,`work`,`car`,`house`,`weight`,`bodysize`,`smoke`,`drink`,`constellation`,`ethnic`,`marrytime`,`showinfo`,`height`,`text`,`isadmin`) values 
+('1','李四','12','1994-10-01',NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,0,0,NULL,0),
+('2','李四','12','1994-10-01',NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,0,0,NULL,0),
+('3','李四','12','1994-10-01',NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,0,0,NULL,0),
+('4','李四','12','1994-10-01',NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL,0,0,NULL,0);
 
 /*Table structure for table `user_condition` */
 
 DROP TABLE IF EXISTS `user_condition`;
 
 CREATE TABLE `user_condition` (
-  `userid` varchar(32) NOT NULL COMMENT '主键',
   `openid` varchar(200) NOT NULL COMMENT '微信OPENID',
   `agerange` varchar(20) DEFAULT NULL COMMENT '年龄范围',
   `heightrange` varchar(20) DEFAULT NULL COMMENT '身高范围',
@@ -101,8 +98,7 @@ CREATE TABLE `user_condition` (
   `bodysize` varchar(20) DEFAULT NULL COMMENT '体型',
   `smoke` varchar(4) DEFAULT NULL COMMENT '抽烟',
   `drink` varchar(4) DEFAULT NULL COMMENT '饮酒',
-  `hasphoto` varchar(4) DEFAULT NULL COMMENT '是否有照片',
-  PRIMARY KEY (`userid`)
+  `hasphoto` varchar(4) DEFAULT NULL COMMENT '是否有照片'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='择偶条件';
 
 /*Data for the table `user_condition` */
@@ -112,7 +108,6 @@ CREATE TABLE `user_condition` (
 DROP TABLE IF EXISTS `user_image`;
 
 CREATE TABLE `user_image` (
-  `userid` varchar(100) DEFAULT NULL,
   `openid` varchar(100) DEFAULT NULL,
   `image` blob COMMENT '图片'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

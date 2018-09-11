@@ -12,18 +12,17 @@
     </resultMap>  
     <!-- 查询单条记录 -->  
     <select id="selectUserById" parameterType="String" resultType="com.date.model.User">  
-        SELECT * FROM user WHERE id = #{id}
+        SELECT * FROM user WHERE openid = #{id}
     </select>
     
-    <insert id="insertUser" parameterType="com.date.model.User" keyProperty="id" useGeneratedKeys="true">
+    <insert id="insertUser" parameterType="com.date.model.User">
      	insert into user(
-     		Id,
    			OPENID,
    			NICKNAME,
    			SEX,
    			BIRTH,
    			CITY,
-   			EDUCTATION,
+   			EDUCATION,
    			INCOME,
    			ISMARRY,
    			HASCHILD,
@@ -40,10 +39,8 @@
    			MARRYTIME,
    			SHOWINFO,
    			HEIGHT,
-   			TEXT,
-   			ISADMIN
-   		) values (
-   			UUID(),
+   			TEXT
+    		) values (
 	     	#{openid},
 	     	#{nickname},
 	     	#{sex},
@@ -66,18 +63,16 @@
 	     	#{marrytime},
 	     	#{showinfo},
 	     	#{height},
-	     	#{text},
-	     	#{isadmin}
+	     	#{text}
 	     )
     </insert>
     
     <update id="updateUser" parameterType="com.date.model.User">
     	update user set
-    		openid = #{openid},
     		nickname = #{nickname},
 			sex = #{sex},
 			birth = #{birth},
-			city = #{{city},
+			city = #{city},
 			education = #{education},
 			income = #{income},
 			ismarry = #{ismarry},
@@ -96,15 +91,23 @@
 			showinfo = #{showinfo},
 			height = #{height},
 			text = #{text}
-    		where id = #{id}
+    		where openid = #{openid}
 	</update>
 	
     <delete id="deleteUser" parameterType="String">
-    	delete from user where id = #{id}
+    	delete from user where openid = #{openid}
     </delete>
     
-    <select id="queryUserList" parameterType="com.date.model.User" resultType="com.date.model.user">
+   <!--  <select id="queryUserList" parameterType="com.date.model.User" resultType="com.date.model.User">
     	<if test="">
     	</if>
+    </select> -->
+    <select id="queryUser" parameterType="com.date.model.User" resultType="com.date.model.User">
+    	select * from user 
+    	where 1 = 1
+<!--     	<if test="">
+    		And 
+    	</if>  -->
+    	limit #{limitMin},#{pageSize}
     </select>
 </mapper> 
