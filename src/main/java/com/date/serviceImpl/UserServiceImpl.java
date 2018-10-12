@@ -3,6 +3,7 @@ package com.date.serviceImpl;
 import java.util.List;
 
 import com.date.model.User;
+import com.date.model.WXSession;
 
 public interface UserServiceImpl {
 	
@@ -13,4 +14,6 @@ public interface UserServiceImpl {
 	public int updateUser(User u);
 	
 	public List<User> queryUser(User u);
+	
+	public WXSession getWXSession(String code);
 }

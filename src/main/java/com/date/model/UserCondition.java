@@ -2,8 +2,6 @@ package com.date.model;
 
 public class UserCondition {
 	
-	private String userid;
-	
 	private String openid;
 	
 	private String agerange;
@@ -29,14 +27,6 @@ public class UserCondition {
 	private String drink;
 	
 	private String hasphoto;
-	
-	public String getUserid() {
-		return userid;
-	}
-
-	public void setUserid(String userid) {
-		this.userid = userid;
-	}
 
 	public String getOpenid() {
 		return openid;

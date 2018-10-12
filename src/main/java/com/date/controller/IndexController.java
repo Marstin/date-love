@@ -73,4 +73,12 @@ public class IndexController {
 		return new Gson().toJson(lstUser);
 	}
 	
+	@RequestMapping(value = "/queryUser",produces = {"application/json;charset=UTF-8"})
+	@ResponseBody
+	public String getOpenId(HttpServletRequest request, HttpServletResponse response) {
+		String code = request.getParameter("code");
+		String openid = userService.getWXSession(code).getOpenid();
+		return new Gson().toJson(openid);
+	}
 }
+	
